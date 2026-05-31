@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large data files — not tracked in git
+data/
+osfstorage-archive/
+
+# Fine-tuned backbone checkpoint (166MB, not the keeper model)
+models/finetuned_global.pt
+models/finetuned_global_results.json
