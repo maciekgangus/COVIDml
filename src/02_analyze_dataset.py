@@ -41,7 +41,7 @@ def plot_zone_distributions(global_df: pd.DataFrame) -> None:
     colors = sns.color_palette("Set2", 4)
     for ax, zone in zip(axes.flat, ZONE_NAMES):
         counts = global_df[f"Zone{zone}"].value_counts().sort_index()
-        ax.bar(counts.index, counts.values, color=colors, edgecolor="white")
+        ax.bar(counts.index, counts.values, color=[colors[i] for i in counts.index], edgecolor="white")
         ax.set_title(f"Zone {zone}")
         ax.set_xlabel("Score (0–3)")
         ax.set_ylabel("Count")

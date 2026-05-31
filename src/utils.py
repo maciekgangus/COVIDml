@@ -31,7 +31,7 @@ def load_metadata():
     consensus_df = pd.read_csv(METADATA_CONSENSUS, encoding="utf-8-sig")
 
     def parse_score(s):
-        s = str(int(s)).zfill(6)
+        s = str(int(float(s))).zfill(6)
         return [int(c) for c in s]
 
     parsed = global_df["BrixiaScore"].apply(parse_score)
@@ -97,6 +97,8 @@ class BrixiaDataset(Dataset):
 
         # Load 16-bit PNG with OpenCV (IMREAD_UNCHANGED preserves uint16)
         arr = cv2.imread(str(png_path), cv2.IMREAD_UNCHANGED)  # shape (H, W), uint16
+        if arr is None:
+            raise FileNotFoundError(f"PNG not found or unreadable: {png_path}")
         arr_8bit = (arr / 256).astype(np.uint8)
         img_rgb = np.stack([arr_8bit, arr_8bit, arr_8bit], axis=2)  # (H, W, 3)
 
